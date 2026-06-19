@@ -15,4 +15,8 @@ public class Product {
         this.설명 = 설명;
         this.재고수량 = 재고수량;
     }
+    @Override
+    public String toString() {
+        return 상품명 + "|" + String.format("%,d",가격) +"|" +설명 +"|" + 재고수량;
+    }
 }
