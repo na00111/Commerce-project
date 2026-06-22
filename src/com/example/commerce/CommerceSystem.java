@@ -91,10 +91,20 @@ public class CommerceSystem {
             }
             if (productMenu > 0 && productMenu <= products.size()) {
                 Product selectedProduct = products.get(productMenu - 1);
-                System.out.println("\n 선택한 상품" +selectedProduct + "|재고 :" + selectedProduct.get재고수량() +"개");
+                System.out.println("\n 선택한 상품\n" +selectedProduct + "|재고 :" + selectedProduct.get재고수량() +"개");
+
+                System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
+                System.out.println("1.확인          2.취소");
+                int cartMenu = sc.nextInt();
+
+                if (cartMenu == 1) {
+                    System.out.println(selectedProduct.get상품명() +" 상품이 장바구니에 추가되었습니다");
+                } else if (cartMenu == 2) {
+                    System.out.println(selectedProduct.get상품명() +" 장바구니 추가를 취소했습니다");
+                }else {
+                    System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
+                }
                 break;
-            }else {
-                System.out.println("잘못된 상품 번호입니다 . 다시 입력해주세요");
             }
         }
     }
