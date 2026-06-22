@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Category {
     private String name;
+    private List<Product> products = new ArrayList<>();
 
-    List<Product> products = new ArrayList<>();
     public Category(String name) {
         this.name = name;
     }
