@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class CommerceSystem {
 
     private List<Category> categories;
-    private Cart cart = new Cart(); //cart 객체 만들기
+    Cart cart = new Cart(); //cart 객체 만들기
 
     //생성자 (객체 초기화 메서드)  객체 생성은 new연산자가, 객체 초기화는 생성자가
     public CommerceSystem(List<Category> categories) {
@@ -25,7 +25,7 @@ public class CommerceSystem {
         this.customer = customer;
     }
 
-    public void Start() {
+    public void Start() { //메뉴 제어
         Scanner sc = new Scanner(System.in);
 
         int mainManu = -7;
@@ -39,20 +39,40 @@ public class CommerceSystem {
                 i++; //카테고리에 이름이 무한대로 추가 가능?
             }
             System.out.println("0. 종료        | 프로그램 종료");
+
+            if (!cart.isEmpty()) {
+                System.out.println("\n[ 주문 관리 ]");
+                System.out.println("4. 장바구니 확인    | 장바구니를 확인 후 주문합니다.");
+                System.out.println("5. 주문 취소       | 진행중인 주문을 취소합니다.");
+            }
+
             System.out.println("입력 : ");
             mainManu = sc.nextInt();
 
-            if (mainManu == 0) {
-                System.out.println("커머스 플랫폼을 종료합니다");
-                break;
+
+            if ((mainManu ==4 || mainManu ==5) && cart.isEmpty()) {
+                System.out.println("⚠️ [예외 발생] 현재 장바구니가 비어있어 해당 메뉴에 접근할 수 없습니다.");
+                continue;
             }
+
+                if ((mainManu ==4 || mainManu ==5 ) && cart.isEmpty()) { //유효성 검사
+                    System.out.println("예외 발생] 현재 장바구니가 비어있어 해당 메뉴에 접근할 수 없습니다.");
+                    continue;
+                }
+                if (mainManu == 0) {
+                    System.out.println("커머스 플랫폼을 종료합니다");
+                    break;
+                }
             if (mainManu > 0 && mainManu <= categories.size()) {
                 Category selectedCategory = categories.get(mainManu - 1);
-                 showCategoryDetail(selectedCategory,sc);
+                showCategoryDetail(selectedCategory,sc);
+            } else if (mainManu == 4) {
+                    cart.showCartList();
+            } else if (mainManu ==5 ) {
+                System.out.println(" 진행 중인 주문이 취소되었습니다.");
             } else {
                 System.out.println(("잘못된 번호입니다. 다시 입력해주세요!"));
             }
-
 
 // 처음에 만든 일회성 코드
 //        int i = 1;
@@ -68,7 +88,7 @@ public class CommerceSystem {
 //            System.out.println("커머스 플랫폼을 종료합니다");
         }
     }
-
+// 상품 상세 화면 메소드
     private void showCategoryDetail(Category category, Scanner sc) {
         int productMenu = -7;
 
@@ -90,43 +110,22 @@ public class CommerceSystem {
             }
             if (productMenu > 0 && productMenu <= products.size()) {
                 Product selectedProduct = products.get(productMenu - 1);
-                System.out.println("\n 선택한 상품\n" +selectedProduct + "|재고 :" + selectedProduct.get재고수량() +"개");
+                System.out.println("\n 선택한 상품\n" + selectedProduct + "|재고 :" + selectedProduct.get재고수량() + "개");
 
                 System.out.println("위 상품을 장바구니에 추가하시겠습니까?");
                 System.out.println("1.확인          2.취소");
                 int cartMenu = sc.nextInt();
 
                 if (cartMenu == 1) {
-                    System.out.println(selectedProduct.get상품명() +" 상품이 장바구니에 추가되었습니다");
+                    System.out.println(selectedProduct.get상품명() + " 상품이 장바구니에 추가되었습니다");
                 } else if (cartMenu == 2) {
-                    System.out.println(selectedProduct.get상품명() +" 장바구니 추가를 취소했습니다");
-                }else {
+                    System.out.println(selectedProduct.get상품명() + " 장바구니 추가를 취소했습니다");
+                } else {
                     System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
                 }
                 break;
             }
-            if (!cart.isEmpty()) {
-                System.out.println("\n[ 주문 관리 ]");
-                System.out.println("4. 장바구니 확인    | 장바구니를 확인 후 주문합니다.");
-                System.out.println("5. 주문 취소       | 진행중인 주문을 취소합니다.");
 
-                System.out.println("입력 : ");
-                 int chooseMenu = sc.nextInt();
-
-                if ((chooseMenu ==4 || chooseMenu ==5 ) && cart.isEmpty()) { //유효성 검사
-                    System.out.println("예외 발생] 현재 장바구니가 비어있어 해당 메뉴에 접근할 수 없습니다.");
-                    continue;
-                }
-                if (chooseMenu == 0) {
-                    System.out.println("커머스 플랫폼을 종료합니다");
-                    break;
-                } else if (1<= chooseMenu && chooseMenu>=3) {
-
-
-                }else if (chooseMenu == 4) {
-                    System.out.println(products);
-                }
-            }
+        }
         }
     }
-}
