@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class CommerceSystem {
 
     private List<Category> categories;
+    private Cart cart = new Cart(); //cart 객체 만들기
 
     //생성자 (객체 초기화 메서드)  객체 생성은 new연산자가, 객체 초기화는 생성자가
     public CommerceSystem(List<Category> categories) {
@@ -40,8 +41,6 @@ public class CommerceSystem {
             System.out.println("0. 종료        | 프로그램 종료");
             System.out.println("입력 : ");
             mainManu = sc.nextInt();
-
-
 
             if (mainManu == 0) {
                 System.out.println("커머스 플랫폼을 종료합니다");
@@ -105,6 +104,28 @@ public class CommerceSystem {
                     System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
                 }
                 break;
+            }
+            if (!cart.isEmpty()) {
+                System.out.println("\n[ 주문 관리 ]");
+                System.out.println("4. 장바구니 확인    | 장바구니를 확인 후 주문합니다.");
+                System.out.println("5. 주문 취소       | 진행중인 주문을 취소합니다.");
+
+                System.out.println("입력 : ");
+                 int chooseMenu = sc.nextInt();
+
+                if ((chooseMenu ==4 || chooseMenu ==5 ) && cart.isEmpty()) { //유효성 검사
+                    System.out.println("예외 발생] 현재 장바구니가 비어있어 해당 메뉴에 접근할 수 없습니다.");
+                    continue;
+                }
+                if (chooseMenu == 0) {
+                    System.out.println("커머스 플랫폼을 종료합니다");
+                    break;
+                } else if (1<= chooseMenu && chooseMenu>=3) {
+
+
+                }else if (chooseMenu == 4) {
+                    System.out.println(products);
+                }
             }
         }
     }

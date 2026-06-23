@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Cart {
     private List<Product> cartItems = new ArrayList<>();
+    public boolean isEmpty() {
+        return cartItems.isEmpty(); //메소드 소스 알멩이 cartItem 리스트가 프라이빗이라 만들어주는건가?
+    }
 
     public void addProduct(Product product) {
         cartItems.add(product);
