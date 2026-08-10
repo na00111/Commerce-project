@@ -1,29 +1,19 @@
-package com.example.commerce;
+import com.example.commerce.CartItem;
+import com.example.commerce.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private List<Product> cartItems = new ArrayList<>();
-    public boolean isEmpty() {
-        return cartItems.isEmpty(); //메소드 소스 알멩이 cartItem 리스트가 프라이빗이라 만들어주는건가?
-    }
-
-    public void addProduct(Product product) {
-        cartItems.add(product);
-    }
-    public void showCartList() {
-        if (cartItems.isEmpty()) {
-            System.out.println("장바구니에 아무것도 없습니다");
+    private List<CartItem> cartItems;
+public void addProduct(Product product,Integer quantity) {
+    for(CartItem cartItem: cartItems) {
+        if (item.getProduct().getName().equals(product.getName())) {
+            item.setQuantity(item.getQuantity() + quantity);
             return;
         }
-        System.out.println(" [장바구니 내역]");
-        int total = 0;
-
-        for (Product p: cartItems ) {
-            System.out.println(p);
-            total += p.get가격();
-        }
     }
-
+    cartItems.add(new CartItem(product, quantity));
+}
+public List<CartItem> getCartItems() {return cartItems;}
+    public boolean isEmpty() {return cartItems.isEmpty();}
 }
